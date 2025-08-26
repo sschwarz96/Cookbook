@@ -1,0 +1,15 @@
+{
+  "id": "string",
+  "name": "Recipe Name",
+  "ingredients": [
+    "Ingredient 1",
+    "Ingredient 2"
+  ],
+  "instructions": [
+    "Step1",
+    "Step2"
+  ],
+  "category": [
+    "Category"
+  ]
+}
