@@ -1,6 +1,6 @@
-import ButtonGroup from "@/Components/main_menu_buttons";
-import SearchInput from "@/Components/search_field";
-import InteractiveList from "@/Components/favorites_list";
+import ButtonGroup from "@/components/main_menu_buttons";
+import SearchInput from "@/components/search_field";
+import InteractiveList from "@/components/favorites_list";
 
 export default function MainMenu() {
     return (

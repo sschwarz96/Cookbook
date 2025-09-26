@@ -2,7 +2,7 @@
 import {useState} from 'react';
 import Box from '@mui/material/Box';
 import {Recipe} from '@/types/types';
-import RecipeForm from "@/Components/recipe_form";
+import RecipeForm from "@/components/recipe_form";
 
 let id = 0;
 

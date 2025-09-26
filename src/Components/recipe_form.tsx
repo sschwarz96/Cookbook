@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, IconButton, MenuItem } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useRouter } from "next/navigation";
+import { home } from "@/routes/routes";
 
 type Ingredient = { qty?: string; unit?: string; item: string };
 type Step = { text: string };
@@ -13,6 +15,8 @@ export default function RecipeForm() {
     const [category, setCategory] = useState('Starter');
     const [ingredients, setIngredients] = useState<Ingredient[]>([{ qty: '', unit: '', item: '' }]);
     const [steps, setSteps] = useState<Step[]>([{ text: '' }]);
+    const router = useRouter();
+
 
     const addIngredient = () => setIngredients(prev => [...prev, { qty: '', unit: '', item: '' }]);
     const removeIngredient = (i: number) => setIngredients(prev => prev.filter((_, idx) => idx !== i));
@@ -38,6 +42,12 @@ export default function RecipeForm() {
             body: JSON.stringify(recipe),
         });
     };
+
+
+    const cancel = () => {
+        router.push(home)
+
+    }
 
     return (
         <Box component="form" sx={{ display: 'grid', gap: 2, maxWidth: 900 }}>
@@ -126,7 +136,9 @@ export default function RecipeForm() {
 
             {/* Actions */}
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
+                <Button variant="contained" onClick={cancel}>Cancel</Button>
                 <Button variant="contained" onClick={save}>Save recipe</Button>
+
             </Box>
         </Box>
     );

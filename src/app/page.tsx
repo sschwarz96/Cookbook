@@ -1,8 +1,8 @@
-import SideArea from "@/Components/side_area"
+import SideArea from "@/components/side_area"
 import BologneseImage from '../img/Easy-Bolognese.webp'; // Import the image
 import KaiserschmarrnImage from '../img/kaiserschmarrn.jpg'; // Import the image
-import MainMenu from "@/Components/main_menu";
-import Recipes from "@/Components/recipes";
+import MainMenu from "@/components/main_menu";
+import Recipes from "@/components/recipes";
 
 
 export default function Home() {

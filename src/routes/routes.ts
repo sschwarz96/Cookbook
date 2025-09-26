@@ -2,4 +2,5 @@ import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-
 
 
 export const addRecipe = "/recipes/add"
-export const createRecipeApu = "/api/create-recipe"
+export const createRecipe = "/api/create-recipe"
+export const home = "/"
