@@ -1,8 +1,9 @@
-import {Recipe} from "@/types/types";
+import {RecipeTemplate} from "@/types/types";
 import {createRecipeJson} from "@/logic/recipeHandler";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-    const recipe: Recipe = await request.json()
-    createRecipeJson(recipe)
-    return Response.json({recipe})
+    const recipe: RecipeTemplate = await request.json()
+    const createdRecipe = await createRecipeJson(recipe)
+    return NextResponse.json(createdRecipe, {status: 201})
 }

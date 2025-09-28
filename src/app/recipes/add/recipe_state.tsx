@@ -1,32 +1,10 @@
 'use client';
-import {useState} from 'react';
 import Box from '@mui/material/Box';
-import {Recipe} from '@/types/types';
 import RecipeForm from "@/components/recipe_form";
 
 let id = 0;
 
 export default function RecipeState() {
-    const [name, setName] = useState('');
-    const [ingredient, setIngredient] = useState('');
-    const [step, setStep] = useState('');
-    const [category, setCategory] = useState('Meal type');
-
-    const addRecipe = async () => {
-        const recipe: Recipe = {
-            id: id++,
-            name,
-            ingredients: [ingredient],
-            steps: [step],
-            category,
-        };
-        await fetch('/api/create-recipe', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(recipe),
-        });
-    };
-
     return (
         <Box
             component="main"

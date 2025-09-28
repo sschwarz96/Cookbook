@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, IconButton, MenuItem } from '@mui/material';
@@ -15,6 +15,8 @@ export default function RecipeForm() {
     const [category, setCategory] = useState('Starter');
     const [ingredients, setIngredients] = useState<Ingredient[]>([{ qty: '', unit: '', item: '' }]);
     const [steps, setSteps] = useState<Step[]>([{ text: '' }]);
+    const [errors, setErrors] = useState({});
+    const [isFormValid, setIsFormValid] = useState(false);
     const router = useRouter();
 
 
@@ -28,8 +30,30 @@ export default function RecipeForm() {
     const updateStep = (i: number, text: string) =>
         setSteps(prev => prev.map((s, idx) => (idx === i ? { text } : s)));
 
+
+    useEffect(() => {
+        validateForm();
+    }, [name, ingredients, steps]);
+    // Validate form
+    const validateForm = () => {
+        if (!name) {
+            errors.name = 'Name is required.';
+        }
+
+        if (!ingredients.length || !ingredients[0].item || !ingredients[0].qty || !ingredients[0].unit) {
+            errors.ingredients = 'Ingredients are required.';
+        }
+
+        if (!steps.length || !steps[0].text) {
+            errors.steps = 'Steps are required.';
+        }
+        setErrors(errors);
+        setIsFormValid(Object.keys(errors).length === 0);
+    };
+
     const save = async () => {
         const recipe = {
+            id: Date.now(),
             name: name.trim(),
             category,
             ingredients: ingredients.filter(i => i.item.trim() !== ''), // drop empties
@@ -41,6 +65,7 @@ export default function RecipeForm() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(recipe),
         });
+        router.push(home)
     };
 
 

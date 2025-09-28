@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   web:
     build:
@@ -16,15 +14,32 @@ services:
       mongodb:
         condition: service_healthy
 
+  #mongodb:
+   # image: mongo:6
+   # container_name: mongodb
+   # ports:
+   #   - "27017:27017"
+   # volumes:
+   #   - mongodb-data:/data/db
+   # healthcheck:
+    #  test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+    #  interval: 10s
+     # timeout: 5s
+     # retries: 5
+
   mongodb:
     image: mongo:6
     container_name: mongodb
+    command: ["--auth", "--bind_ip_all"]    
     ports:
-      - "27017:27017"
+      - "127.0.0.1:27017:27017"   # expose to localhost only
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
     volumes:
       - mongodb-data:/data/db
     healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      test: ["CMD", "mongosh", "-u", "root", "-p", "secret", "--authenticationDatabase", "admin", "--eval", "db.adminCommand('ping')"]
       interval: 10s
       timeout: 5s
       retries: 5
